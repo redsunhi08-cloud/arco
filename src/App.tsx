@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "motion/react";
 import { Navigation } from "./components/Navigation";
 import { Footer } from "./components/Footer";
 import Splash from "./components/Splash";
@@ -25,12 +26,27 @@ const ScrollToTop = () => {
 };
 
 const AppContent = () => {
-  const [isSplashVisible, setIsSplashVisible] = useState(true);
+  const [isSplashVisible, setIsSplashVisible] = useState(() => {
+    // Check if splash has already been seen in this session
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem("arco_intro_seen");
+    }
+    return true;
+  });
   const { isModalOpen, closeModal } = useInquiry();
+
+  const handleCloseSplash = () => {
+    sessionStorage.setItem("arco_intro_seen", "true");
+    setIsSplashVisible(false);
+  };
 
   return (
     <>
-      <Splash isVisible={isSplashVisible} onClose={() => setIsSplashVisible(false)} />
+      <AnimatePresence mode="wait">
+        {isSplashVisible && (
+          <Splash isVisible={isSplashVisible} onClose={handleCloseSplash} />
+        )}
+      </AnimatePresence>
       <ScrollToTop />
       <div className="relative min-h-screen bg-white">
         <Navigation />
