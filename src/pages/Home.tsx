@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInView } from "motion/react";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInView, useScroll } from "motion/react";
 import { ChevronRight, ArrowUpRight, ChevronLeft, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ASSETS, REVIEWS } from "../constants";
@@ -25,9 +25,64 @@ const Counter = ({ value, duration = 2 }: { value: number; duration?: number }) 
   return <motion.span ref={ref}>{rounded}</motion.span>;
 };
 
+const PhilosophySection = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const textY1 = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+
+  return (
+    <section ref={containerRef} className="relative h-[50vh] min-h-[400px] bg-primary overflow-hidden flex items-center justify-center">
+      {/* Background Parallax Image */}
+      <motion.div 
+        style={{ y: imageY }}
+        className="absolute inset-0 z-0 opacity-40 scale-110"
+      >
+        <img 
+          src={ASSETS.HERO_SLIDES[2]} 
+          alt="Architecture Philosophy"
+          className="w-full h-full object-cover grayscale brightness-75"
+          referrerPolicy="no-referrer"
+        />
+      </motion.div>
+
+      {/* Floating Elements Container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex items-center justify-center">
+        
+        {/* Large Text Reveal */}
+        <motion.div 
+          style={{ y: textY1, opacity }}
+          className="flex flex-col items-center text-center"
+        >
+          <span className="text-secondary text-xs font-bold tracking-[0.5em] uppercase mb-8">Philosophy</span>
+          <h2 className="text-[50px] leading-[70px] font-display font-light text-white tracking-tighter">
+            단순함 속에 깊이를 담는 아르코의 철학
+          </h2>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { openModal } = useInquiry();
+  const headerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % ASSETS.HERO_SLIDES.length);
@@ -46,15 +101,12 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
 
   const slideVariants = {
     enter: {
-      scale: 1.1,
       opacity: 0,
     },
     center: {
-      scale: 1,
       opacity: 1,
     },
     exit: {
-      scale: 0.9,
       opacity: 0,
     },
   };
@@ -62,32 +114,40 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <header className="relative h-screen w-full overflow-hidden bg-primary">
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={currentSlide}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              duration: 1.5,
-              ease: [0.4, 0, 0.2, 1],
-            }}
-            className="absolute inset-0"
-          >
-            <img
-              src={ASSETS.HERO_SLIDES[currentSlide]}
-              alt={`Slide ${currentSlide}`}
-              className="h-full w-full object-cover brightness-100"
-              referrerPolicy="no-referrer"
-            />
-            {/* Gradient Overlay - Darkened for readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/50 to-transparent" />
-          </motion.div>
-        </AnimatePresence>
+      <header ref={headerRef} className="relative h-screen w-full overflow-hidden bg-black">
+        <motion.div 
+          style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
+          className="absolute inset-0 z-0"
+        >
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={currentSlide}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                duration: 1.2,
+                ease: "easeInOut",
+              }}
+              className="absolute inset-0"
+            >
+              <img
+                src={ASSETS.HERO_SLIDES[currentSlide]}
+                alt={`Slide ${currentSlide}`}
+                className="h-full w-full object-cover scale-110"
+                referrerPolicy="no-referrer"
+              />
+              {/* Gradient Overlay - Darkened for readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/50 to-transparent" />
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
 
-        <div className="relative h-full max-w-7xl mx-auto px-6 flex flex-col justify-center items-start text-left z-10 pointer-events-none">
+        <motion.div 
+          style={{ y: textY, opacity: textOpacity }}
+          className="relative h-full max-w-7xl mx-auto px-6 flex flex-col justify-center items-start text-left z-10 pointer-events-none"
+        >
           <motion.div
             initial={{ y: 20, opacity: 0, filter: "blur(12px)" }}
             animate={(isSplashVisible === false) ? { y: 0, opacity: 1, filter: "blur(0px)" } : {}}
@@ -116,7 +176,7 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
               </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Navigation Controls Cluster */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-20 pointer-events-auto">
@@ -307,6 +367,9 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
           </div>
         </div>
       </section>
+
+      {/* NEW: Scroll Trigger Philosophy Section */}
+      <PhilosophySection />
 
       {/* Featured Projects Grid */}
       <section className="py-24 md:py-32 bg-surface">
