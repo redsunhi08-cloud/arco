@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", "Noto Sans KR", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  --color-primary: #01261f;
+  --color-secondary: #725a3a;
+  --color-surface: #fcf9f8;
+  --color-surface-container: #f0edec;
+  --color-surface-high: #ebe7e7;
+  --color-surface-highest: #e5e2e1;
+  
+  --spacing-section: 8rem;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-[#1c1b1b] font-sans antialiased;
+  }
+}
+
+.architectural-line {
+  height: 1px;
+  @apply bg-surface-highest w-full;
+}
+
+.text-justified {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Custom scrollbar for a premium feel */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-surface;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 hover:bg-primary/40 transition-colors;
+}
