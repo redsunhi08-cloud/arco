@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Phone, Mail, Clock, ChevronRight } from "lucide-react";
+import { X, Phone, Mail, Clock, ChevronRight, Loader2 } from "lucide-react";
+import { submitInquiry } from "../services/firebaseService";
 
 interface InquiryModalProps {
   isOpen: boolean;
@@ -8,6 +9,38 @@ interface InquiryModalProps {
 }
 
 export const InquiryModal = ({ isOpen, onClose }: InquiryModalProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await submitInquiry({
+        ...formData,
+        createdAt: new Date().toISOString()
+      });
+      alert('문의가 성공적으로 전송되었습니다.');
+      setFormData({ name: "", phone: "", email: "", message: "" });
+      onClose();
+    } catch (error) {
+      console.error(error);
+      alert('전송 중 오류가 발생했습니다.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -60,28 +93,68 @@ export const InquiryModal = ({ isOpen, onClose }: InquiryModalProps) => {
                 <h3 className="text-2xl font-display text-primary mt-2">상담 문의</h3>
               </div>
 
-              <form className="space-y-8" onSubmit={(e) => { e.preventDefault(); onClose(); alert('문의가 접수되었습니다.'); }}>
+              <form className="space-y-8" onSubmit={handleSubmit}>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-primary/40">성함 / 연락처</label>
                   <div className="grid grid-cols-2 gap-4">
-                    <input type="text" placeholder="성함" className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light" required />
-                    <input type="tel" placeholder="연락처" className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light" required />
+                    <input 
+                      type="text" 
+                      name="name"
+                      placeholder="성함" 
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light" 
+                      required 
+                    />
+                    <input 
+                      type="tel" 
+                      name="phone"
+                      placeholder="연락처" 
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light" 
+                      required 
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-primary/40">이메일</label>
-                  <input type="email" placeholder="email@address.com" className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light" required />
+                  <input 
+                    type="email" 
+                    name="email"
+                    placeholder="email@address.com" 
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light" 
+                    required 
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-primary/40">문의 내용</label>
-                  <textarea rows={4} placeholder="프로젝트에 대해 설명해주세요..." className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light resize-none" required></textarea>
+                  <textarea 
+                    name="message"
+                    rows={4} 
+                    placeholder="프로젝트에 대해 설명해주세요..." 
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full border-b border-surface-high py-3 focus:outline-none focus:border-secondary text-primary font-light resize-none" 
+                    required
+                  ></textarea>
                 </div>
 
                 <div className="pt-4">
-                  <button type="submit" className="w-full py-5 bg-primary text-white text-xs font-bold tracking-[0.2em] uppercase hover:bg-secondary transition-all flex items-center justify-center gap-3">
-                    문의 보내기 <ChevronRight size={14} />
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full py-5 bg-primary text-white text-xs font-bold tracking-[0.2em] uppercase hover:bg-secondary transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                  >
+                    {isSubmitting ? (
+                      <><Loader2 className="animate-spin" size={14} /> 전송 중...</>
+                    ) : (
+                      <>문의 보내기 <ChevronRight size={14} /></>
+                    )}
                   </button>
                 </div>
               </form>

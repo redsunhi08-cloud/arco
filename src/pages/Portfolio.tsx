@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, MapPin, Maximize, Clock, ChevronRight } from "lucide-react";
+import { ArrowUpRight, MapPin, Maximize, Clock, ChevronRight, Loader2 } from "lucide-react";
 import { ASSETS } from "../constants";
+import { subscribeNewsletter } from "../services/firebaseService";
 
 const BEFORE_AFTER_DATA = [
   {
     id: 1,
-    category: "Residences",
+    category: "아파트",
     title: "30평 아파트 리모델링",
     location: "경기 성남시",
     size: "30평",
@@ -17,7 +18,7 @@ const BEFORE_AFTER_DATA = [
   },
   {
     id: 2,
-    category: "Kitchen",
+    category: "부분 리모델링",
     title: "40평 주방 리모델링",
     location: "서울 강남구",
     size: "40평",
@@ -28,7 +29,7 @@ const BEFORE_AFTER_DATA = [
   },
   {
     id: 3,
-    category: "Bathroom",
+    category: "부분 리모델링",
     title: "욕실 리모델링",
     location: "인천 연수구",
     size: "20평",
@@ -39,7 +40,7 @@ const BEFORE_AFTER_DATA = [
   },
   {
     id: 4,
-    category: "Commercial",
+    category: "상업공간",
     title: "카페 인테리어",
     location: "서울 마포구",
     size: "25평",
@@ -50,7 +51,7 @@ const BEFORE_AFTER_DATA = [
   },
   {
     id: 5,
-    category: "Residences",
+    category: "아파트",
     title: "25평 아파트 리모델링",
     location: "경기 용인시",
     size: "25평",
@@ -61,18 +62,18 @@ const BEFORE_AFTER_DATA = [
   },
   {
     id: 6,
-    category: "Bedroom",
-    title: "안방 인테리어",
+    category: "주택",
+    title: "전원주택 인테리어",
     location: "경기 수원시",
-    size: "20평",
-    duration: "2주",
-    tags: ["안방", "모던", "우드"],
+    size: "45평",
+    duration: "6주",
+    tags: ["주택", "모던", "정원"],
     beforeImg: "https://postfiles.pstatic.net/MjAyNjA1MDJfMzcg/MDAxNzc3NjQ4NDQxMTE5.ThLthZyIwUjqqSIfodwHesS5LRYj_IRw1ShfhXyu25Ig.t30yxae6BbvT-9cEM-KR-80SqrYO1pUNYw0YboIbN0Ag.PNG/11.png?type=w3840", 
     afterImg: "https://postfiles.pstatic.net/MjAyNjA1MDJfODEg/MDAxNzc3NjQ4NDQwMjYy.F_ZHQdWVYNsDECQ083v717F2ft8LDO4q6DJsh1pK-kUg.h0jZtr52UybEd2x56sd7939Y7v8jMne4hWomgAu7XDcg.PNG/12.png?type=w3840"
   }
 ];
 
-const FILTER_CATEGORIES = ["전체", "주택", "상업공간", "거실", "주방", "욕실", "기타"];
+const FILTER_CATEGORIES = ["전체", "아파트", "주택", "상업공간", "부분 리모델링"];
 
 interface BeforeAfterCardProps {
   project: typeof BEFORE_AFTER_DATA[0];
@@ -184,6 +185,24 @@ const BeforeAfterCard = ({ project }: BeforeAfterCardProps) => {
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("전체");
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setIsSubmitting(true);
+    try {
+      await subscribeNewsletter(email);
+      setEmail("");
+      alert("구독해 주셔서 감사합니다.");
+    } catch (error) {
+      console.error(error);
+      alert("구독 중 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const filteredProjects = activeFilter === "전체" 
     ? BEFORE_AFTER_DATA 
@@ -309,10 +328,23 @@ const Portfolio = () => {
                    우리의 분기별 아카이브에 가입하여 최신 창작물과 건축 철학이 담긴 프로젝트 소식을 받아보세요.
                 </p>
              </div>
-             <div className="flex w-full md:w-auto border-b border-primary/20">
-                <input type="email" placeholder="이메일 주소" className="bg-transparent py-4 text-sm focus:outline-none flex-1 min-w-[300px]" />
-                <button className="px-8 py-4 text-[10px] font-bold tracking-[0.2em] uppercase hover:text-secondary transition-colors">아카이브 참여</button>
-             </div>
+             <form onSubmit={handleSubscribe} className="flex w-full md:w-auto border-b border-primary/20">
+                <input 
+                  type="email" 
+                  placeholder="이메일 주소" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="bg-transparent py-4 text-sm focus:outline-none flex-1 min-w-[300px]" 
+                />
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-8 py-4 text-[10px] font-bold tracking-[0.2em] uppercase hover:text-secondary transition-colors disabled:opacity-50"
+                >
+                  {isSubmitting ? <Loader2 className="animate-spin" size={14} /> : "아카이브 참여"}
+                </button>
+             </form>
           </div>
         </div>
       </section>

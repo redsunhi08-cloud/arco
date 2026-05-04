@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate, useInView } from "motion/react";
 import { ChevronRight, Star, MessageSquare } from "lucide-react";
 import { REVIEWS } from "../constants";
+import { useInquiry } from "../contexts/InquiryContext";
 
 // Extended interface for the new design
 interface ReviewData {
@@ -45,7 +46,7 @@ const EXTENDED_REVIEWS: ReviewData[] = [
   },
   {
     ...REVIEWS[1],
-    category: "욕실 리모델링",
+    category: "부분 리모델링 · 욕실",
     size: "기본형",
     date: "2024.05.18"
   },
@@ -145,8 +146,24 @@ const ReviewCard = ({ review }: { review: ReviewData; key?: React.Key }) => (
 
 const Reviews = () => {
   const [filter, setFilter] = useState("전체");
+  const { openModal } = useInquiry();
 
   const categories = ["전체", "아파트", "주택", "상업공간", "부분 리모델링"];
+
+  const filteredReviews = filter === "전체" 
+    ? EXTENDED_REVIEWS 
+    : EXTENDED_REVIEWS.filter(review => review.category?.includes(filter));
+
+  // Determine which reviews to show in featured slots
+  const featured1 = filteredReviews[0] || null;
+  const bestReviewData = filteredReviews.find(r => r.rating === 5) || filteredReviews[0] || null;
+  const featured2 = filteredReviews.length > 1 ? filteredReviews[1] : null;
+  const gridReviews = filteredReviews.length > 2 ? filteredReviews.slice(2) : (filteredReviews.length > 0 ? [] : []);
+  // Adjusted grid logic: if we only have 1 or 2, they are already shown in featured slots.
+  // Actually, let's just make it simpler:
+  // If no filter, use the original complex layout.
+  // If filtered, maybe just show a grid? 
+  // No, let's try to keep the layout but be safe.
 
   return (
     <div className="pt-24 min-h-screen bg-[#FDFDFD]">
@@ -199,136 +216,162 @@ const Reviews = () => {
             ))}
           </div>
 
-          {/* Top Row: Big Review & Rating Box */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-            <div className="lg:col-span-8">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.01 }}
-                className="bg-white border border-surface-high/60 shadow-sm flex flex-col md:flex-row h-full transition-all duration-500 hover:shadow-xl hover:bg-primary group"
-              >
-                <div className="md:w-1/2 aspect-[4/3] md:aspect-auto overflow-hidden">
-                  <img 
-                    src={EXTENDED_REVIEWS[0].image} 
-                    alt="Featured Review" 
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                  <div className="text-[10px] text-primary/30 font-bold tracking-[0.2em] uppercase mb-4 transition-colors group-hover:text-white/40">
-                    {EXTENDED_REVIEWS[0].category} &middot; {EXTENDED_REVIEWS[0].size}
-                  </div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="text-lg font-bold text-primary transition-colors group-hover:text-white">{EXTENDED_REVIEWS[0].author} 님</span>
-                    <div className="flex gap-0.5 text-[#FFB800] group-hover:text-[#FFD700]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
-                      ))}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={filter}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              {filteredReviews.length > 0 ? (
+                <>
+                  {/* Top Row: Big Review & Rating Box */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+                    {featured1 && (
+                      <div className="lg:col-span-8">
+                        <motion.div 
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          whileHover={{ scale: 1.01 }}
+                          className="bg-white border border-surface-high/60 shadow-sm flex flex-col md:flex-row h-full transition-all duration-500 hover:shadow-xl hover:bg-primary group"
+                        >
+                          <div className="md:w-1/2 aspect-[4/3] md:aspect-auto overflow-hidden">
+                            <img 
+                              src={featured1.image} 
+                              alt="Featured Review" 
+                              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                          <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                            <div className="text-[10px] text-primary/30 font-bold tracking-[0.2em] uppercase mb-4 transition-colors group-hover:text-white/40">
+                              {featured1.category} &middot; {featured1.size}
+                            </div>
+                            <div className="flex items-center gap-3 mb-6">
+                              <span className="text-lg font-bold text-primary transition-colors group-hover:text-white">{featured1.author}</span>
+                              <div className="flex gap-0.5 text-[#FFB800] group-hover:text-[#FFD700]">
+                                {[...Array(Math.floor(featured1.rating))].map((_, i) => (
+                                  <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
+                                ))}
+                              </div>
+                            </div>
+                            <p className="text-base text-primary/70 leading-relaxed font-light mb-10 transition-colors group-hover:text-white/90">
+                              "{featured1.text}"
+                            </p>
+                            <div className="mt-auto flex justify-between items-center text-[10px] font-medium text-primary/20 transition-colors group-hover:text-white/30">
+                              <span>{featured1.date}</span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </div>
+                    )}
+
+                    <div className="lg:col-span-4 flex flex-col gap-8">
+                      <motion.div 
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.02 }}
+                        className="bg-white border border-surface-high/60 px-8 py-10 shadow-sm h-full flex flex-col group cursor-pointer transition-all duration-500 hover:bg-primary hover:border-primary"
+                      >
+                        <h4 className="text-[10px] text-primary/30 font-bold uppercase tracking-widest mb-6 transition-colors group-hover:text-white/40">리뷰 평점</h4>
+                        <div className="flex items-end gap-2 mb-4">
+                           <span className="text-6xl font-display font-medium text-primary transition-colors group-hover:text-white">4.9</span>
+                           <span className="text-xl text-primary/20 font-light mb-2 transition-colors group-hover:text-white/30">/ 5</span>
+                        </div>
+                        <div className="flex gap-1 text-[#FFB800] mb-4 transition-colors group-hover:text-[#FFD700]">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={20} fill="currentColor" strokeWidth={0} />
+                          ))}
+                        </div>
+                      </motion.div>
+
+                      {bestReviewData && (
+                        <motion.div 
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          whileHover={{ scale: 1.02 }}
+                          transition={{ delay: 0.1 }}
+                          className="bg-white border border-surface-high/60 p-8 shadow-sm group cursor-pointer transition-all duration-500 hover:bg-primary hover:border-primary"
+                        >
+                          <h4 className="text-[10px] text-primary/30 font-bold uppercase tracking-widest mb-6 transition-colors group-hover:text-white/40">베스트 리뷰</h4>
+                          <div className="flex gap-4">
+                             <div className="w-24 h-24 flex-shrink-0 overflow-hidden bg-surface">
+                                <img 
+                                  src={bestReviewData.image} 
+                                  alt="Best Review" 
+                                  className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
+                                  referrerPolicy="no-referrer"
+                                />
+                             </div>
+                             <div className="flex flex-col justify-center">
+                                <div className="text-[11px] font-bold text-primary mb-1 transition-colors group-hover:text-white">{bestReviewData.project}</div>
+                                <div className="text-[10px] text-primary/30 font-medium mb-1 transition-colors group-hover:text-white/40">{bestReviewData.date} | {bestReviewData.author}</div>
+                             </div>
+                          </div>
+                        </motion.div>
+                      )}
                     </div>
                   </div>
-                  <p className="text-base text-primary/70 leading-relaxed font-light mb-10 transition-colors group-hover:text-white/90">
-                    "{EXTENDED_REVIEWS[0].text}"
-                  </p>
-                  <div className="mt-auto flex justify-between items-center text-[10px] font-medium text-primary/20 transition-colors group-hover:text-white/30">
-                    <span>{EXTENDED_REVIEWS[0].date}</span>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
 
-            <div className="lg:col-span-4 flex flex-col gap-8">
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="bg-white border border-surface-high/60 px-8 py-10 shadow-sm h-full flex flex-col"
-              >
-                <h4 className="text-[10px] text-primary/30 font-bold uppercase tracking-widest mb-6">리뷰 평점</h4>
-                <div className="flex items-end gap-2 mb-4">
-                   <span className="text-6xl font-display font-medium text-primary">4.9</span>
-                   <span className="text-xl text-primary/20 font-light mb-2">/ 5</span>
-                </div>
-                <div className="flex gap-1 text-[#FFB800] mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={20} fill="currentColor" strokeWidth={0} />
-                  ))}
-                </div>
-              </motion.div>
+                  {/* Second Featured Row (Image Right) */}
+                  {featured2 && (
+                    <div className="mb-12">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.005 }}
+                        className="bg-white border border-surface-high/60 shadow-sm flex flex-col md:flex-row-reverse h-full transition-all duration-500 hover:shadow-xl hover:bg-primary group"
+                      >
+                        <div className="md:w-1/2 aspect-[4/3] md:aspect-auto overflow-hidden">
+                          <img 
+                            src={featured2.image} 
+                            alt="Featured Review 2" 
+                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                        <div className="md:w-1/2 p-8 md:p-12 lg:p-20 flex flex-col justify-center">
+                          <div className="flex gap-2 mb-4">
+                            <span className="px-3 py-1 bg-surface text-[10px] font-bold tracking-widest uppercase text-primary/40 border border-surface-high/50 transition-colors group-hover:bg-white/10 group-hover:text-white/60 group-hover:border-white/20">{featured2.category}</span>
+                          </div>
+                          <div className="flex items-center gap-3 mb-6">
+                            <span className="text-xl font-bold text-primary transition-colors group-hover:text-white">{featured2.author}</span>
+                            <div className="flex gap-0.5 text-[#FFB800] group-hover:text-[#FFD700]">
+                              {[...Array(Math.floor(featured2.rating))].map((_, i) => (
+                                <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
+                              ))}
+                            </div>
+                          </div>
+                          <p className="text-lg text-primary/70 leading-relaxed font-light mb-10 transition-colors group-hover:text-white/90">
+                            "{featured2.text}"
+                          </p>
+                          <div className="text-[10px] font-medium text-primary/20 transition-colors group-hover:text-white/30">{featured2.date}</div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  )}
 
-              <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="bg-white border border-surface-high/60 p-8 shadow-sm"
-              >
-                <h4 className="text-[10px] text-primary/30 font-bold uppercase tracking-widest mb-6">베스트 리뷰</h4>
-                <div className="flex gap-4">
-                   <div className="w-24 h-24 flex-shrink-0 overflow-hidden bg-surface">
-                      <img 
-                        src={EXTENDED_REVIEWS[7].image} 
-                        alt="Best Review" 
-                        className="w-full h-full object-cover grayscale transition-all hover:grayscale-0"
-                        referrerPolicy="no-referrer"
-                      />
-                   </div>
-                   <div className="flex flex-col justify-center">
-                      <div className="text-[11px] font-bold text-primary mb-1">욕실 리모델링</div>
-                      <div className="text-[10px] text-primary/30 font-medium mb-1">2024.05.18 | 이OO님</div>
-                   </div>
+                  {/* Grid of Reviews */}
+                  {gridReviews.length > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {gridReviews.map((review, idx) => (
+                        <ReviewCard key={idx} review={review} />
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="py-32 text-center">
+                  <p className="text-primary/30 text-sm font-light tracking-widest uppercase">해당 카테고리의 리뷰가 아직 없습니다.</p>
                 </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Second Featured Row (Image Right) */}
-          <div className="mb-12">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.005 }}
-              className="bg-white border border-surface-high/60 shadow-sm flex flex-col md:flex-row-reverse h-full transition-all duration-500 hover:shadow-xl hover:bg-primary group"
-            >
-              <div className="md:w-1/2 aspect-[4/3] md:aspect-auto overflow-hidden">
-                <img 
-                  src={EXTENDED_REVIEWS[2].image} 
-                  alt="Featured Review 2" 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="md:w-1/2 p-8 md:p-12 lg:p-20 flex flex-col justify-center">
-                <div className="flex gap-2 mb-4">
-                  <span className="px-3 py-1 bg-surface text-[10px] font-bold tracking-widest uppercase text-primary/40 border border-surface-high/50 transition-colors group-hover:bg-white/10 group-hover:text-white/60 group-hover:border-white/20">상업공간 · 카페</span>
-                </div>
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="text-xl font-bold text-primary transition-colors group-hover:text-white">{EXTENDED_REVIEWS[2].author} 님</span>
-                  <div className="flex gap-0.5 text-[#FFB800] group-hover:text-[#FFD700]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-lg text-primary/70 leading-relaxed font-light mb-10 transition-colors group-hover:text-white/90">
-                  "{EXTENDED_REVIEWS[2].text}"
-                </p>
-                <div className="text-[10px] font-medium text-primary/20 transition-colors group-hover:text-white/30">{EXTENDED_REVIEWS[2].date}</div>
-              </div>
+              )}
             </motion.div>
-          </div>
-
-          {/* Grid of Reviews */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence mode="popLayout">
-              {EXTENDED_REVIEWS.slice(3).map((review, idx) => (
-                <ReviewCard key={idx} review={review} />
-              ))}
-            </AnimatePresence>
-          </div>
+          </AnimatePresence>
         </div>
       </section>
 
@@ -350,7 +393,10 @@ const Reviews = () => {
                     <p className="text-primary/40 text-xs font-light tracking-[0.1em] uppercase">무료 상담을 통해 당신의 공간에 가장 잘 맞는 솔루션을 제안해드립니다.</p>
                  </div>
               </div>
-              <button className="px-10 py-5 bg-primary text-white flex items-center gap-4 group transition-all rounded-sm shadow-md hover:bg-secondary">
+              <button 
+                onClick={openModal}
+                className="px-10 py-5 bg-primary text-white flex items-center gap-4 group transition-all rounded-sm shadow-md hover:bg-secondary"
+              >
                  <span className="text-xs font-bold tracking-widest uppercase">무료 상담 신청하기</span>
                  <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>

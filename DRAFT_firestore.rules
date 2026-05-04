@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Phase 3: Primitive Definitions
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() { 
+      return isSignedIn() && (
+        request.auth.token.email == 'redsunhi08@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+    function incoming() { return request.resource.data; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // Phase 4: Entity Validation
+    function isValidInquiry(data) {
+      return data.keys().hasAll(['name', 'email', 'message', 'createdAt'])
+        && data.keys().size() <= 7
+        && data.name is string && data.name.size() >= 1 && data.name.size() <= 100
+        && data.email is string && data.email.size() >= 5 && data.email.size() <= 150
+        && data.message is string && data.message.size() >= 1 && data.message.size() <= 5000
+        && data.createdAt == request.time
+        && (!('title' in data) || (data.title is string && data.title.size() <= 200))
+        && (!('phone' in data) || (data.phone is string && data.phone.size() <= 50))
+        && (!('projectType' in data) || (data.projectType is string && data.projectType.size() <= 100));
+    }
+
+    function isValidSubscription(data) {
+      return data.keys().hasAll(['email', 'createdAt'])
+        && data.keys().size() == 2
+        && data.email is string && data.email.size() >= 5 && data.email.size() <= 150
+        && data.createdAt == request.time;
+    }
+
+    // Collections
+    match /inquiries/{inquiryId} {
+      allow create: if isValidId(inquiryId) && isValidInquiry(incoming());
+      allow get, list, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    match /subscriptions/{subscriptionId} {
+      allow create: if isValidId(subscriptionId) && isValidSubscription(incoming());
+      allow get, list, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    match /admins/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow write: if false; // Only manageable via Google Console or specific admin
+    }
+  }
+}

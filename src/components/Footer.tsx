@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Instagram, Quote } from "lucide-react";
+import { Instagram, Quote, Loader2 } from "lucide-react";
 import { ASSETS } from "../constants";
 import { useInquiry } from "../contexts/InquiryContext";
+import { subscribeNewsletter } from "../services/firebaseService";
 
 export const Footer = () => {
   const { openModal } = useInquiry();
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setIsSubmitting(true);
+    try {
+      await subscribeNewsletter(email);
+      setEmail("");
+      alert("구독해 주셔서 감사합니다.");
+    } catch (error) {
+      console.error(error);
+      alert("구독 중 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer className="bg-white pt-24 pb-12 border-t border-surface-high">
       <div className="max-w-7xl mx-auto px-6">
@@ -47,10 +67,23 @@ export const Footer = () => {
           <div className="lg:col-span-1 space-y-8">
             <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-primary mb-8">소식지 구독</h4>
             <p className="text-sm text-primary/50">아카이브를 구독하여 새로운 프로젝트 소식과 디자인 팁을 받아보세요.</p>
-            <div className="flex max-w-md border-b border-surface-high">
-              <input type="email" placeholder="이메일 주소" className="flex-1 py-3 focus:outline-none bg-transparent text-primary text-sm" />
-              <button className="px-6 py-3 text-xs font-bold tracking-widest uppercase hover:text-secondary transition-colors">가입</button>
-            </div>
+            <form onSubmit={handleSubscribe} className="flex max-w-md border-b border-surface-high">
+              <input 
+                type="email" 
+                placeholder="이메일 주소" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 py-3 focus:outline-none bg-transparent text-primary text-sm" 
+              />
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="px-6 py-3 text-xs font-bold tracking-widest uppercase hover:text-secondary transition-colors disabled:opacity-50"
+              >
+                {isSubmitting ? <Loader2 className="animate-spin" size={14} /> : "가입"}
+              </button>
+            </form>
           </div>
         </div>
 
@@ -61,6 +94,7 @@ export const Footer = () => {
           <div className="flex gap-8">
             <a href="#" className="text-[10px] text-primary/30 font-bold uppercase tracking-widest hover:text-primary transition-colors">개인정보처리방침</a>
             <a href="#" className="text-[10px] text-primary/30 font-bold uppercase tracking-widest hover:text-primary transition-colors">계약 가이드라인</a>
+            <Link to="/admin" className="text-[10px] text-primary/10 font-bold uppercase tracking-widest hover:text-primary/30 transition-colors">ADMIN</Link>
           </div>
         </div>
       </div>

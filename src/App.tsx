@@ -9,6 +9,7 @@ import Portfolio from "./pages/Portfolio";
 import Reviews from "./pages/Reviews";
 import Inquiry from "./pages/Inquiry";
 import Location from "./pages/Location";
+import Admin from "./pages/Admin";
 
 import { InquiryProvider, useInquiry } from "./contexts/InquiryContext";
 import { InquiryModal } from "./components/InquiryModal";
@@ -43,6 +44,7 @@ const AppContent = () => {
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/inquiry" element={<Inquiry />} />
             <Route path="/location" element={<Location />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
 
