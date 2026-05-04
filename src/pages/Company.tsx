@@ -41,9 +41,9 @@ const Company = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[10px] md:text-[11px] font-bold text-[#8D8174] uppercase tracking-[0.4em] mb-4 block">BRAND IDENTITY</span>
-            <h1 className="text-4xl md:text-6xl font-display font-light text-primary tracking-[0.1em] uppercase mb-8">PHILOSOPHY</h1>
-            <p className="text-primary/40 font-light text-[13px] md:text-sm tracking-widest max-w-2xl mx-auto leading-relaxed">
+            <span className="text-[11px] font-bold text-[#8b6e4e] uppercase tracking-[0.4em] mb-4 block">BRAND IDENTITY</span>
+            <h1 className="text-4xl md:text-[50px] font-display font-medium text-primary tracking-[0.15em] uppercase mb-8">PHILOSOPHY</h1>
+            <p className="text-primary/70 font-medium text-[14px] md:text-base tracking-widest max-w-2xl mx-auto leading-relaxed">
               아르코는 공간의 본질을 탐구하며, <br className="hidden md:block" /> 거주자의 삶과 철학이 투영된 타임리스 디자인을 지향합니다.
             </p>
           </motion.div>
@@ -79,10 +79,10 @@ const Company = () => {
             >
                <div>
                   <h2 className="text-secondary text-xs font-bold tracking-[0.3em] uppercase mb-6 group-hover:text-white transition-colors">단순함의 미학</h2>
-                  <h3 className="text-[30px] font-display font-light text-primary leading-tight mb-8 group-hover:text-white transition-colors">
-                     덜어냄을 통해 <br /> <span className="">본질의 아름다움</span>을 찾습니다.
+                  <h3 className="text-[34px] font-display font-medium text-primary leading-tight mb-8 group-hover:text-white transition-colors">
+                     덜어냄을 통해 <br /> <span className="text-secondary font-bold group-hover:text-white/80 transition-colors">본질의 아름다움</span>을 찾습니다.
                   </h3>
-                  <div className="space-y-6 text-primary/60 leading-relaxed font-light text-justify text-sm md:text-base group-hover:text-white/80 transition-colors">
+                  <div className="space-y-6 text-primary/80 leading-relaxed font-medium text-justify text-base md:text-lg group-hover:text-white/90 transition-colors">
                      <p>
                         ARCO Interior Remodeling은 건축적 중량감과 유기적인 유연함이 만나는 지점을 지향합니다. 우리는 단순히 공간을 수리하는 것을 넘어, 거주자의 삶의 철학이 투영된 '집'을 탐구합니다. 유행에 휩쓸리지 않는 타임리스 디자인(Timeless Design)을 통해 시간이 흐를수록 가치가 더해지는 공간을 창조합니다.
                      </p>
@@ -117,14 +117,14 @@ const Company = () => {
             </div>
             <div className="lg:col-span-5 space-y-10 pl-0 lg:pl-12">
                <div>
-                 <div className="text-[10px] font-bold text-secondary uppercase tracking-[0.4em] mb-8">About Brand</div>
-                 <h4 className="text-3xl md:text-4xl font-display text-primary leading-tight mb-8">
+                 <div className="text-[11px] font-bold text-secondary uppercase tracking-[0.4em] mb-8">About Brand</div>
+                 <h4 className="text-[42px] font-display font-medium text-primary leading-tight mb-8">
                    공간을 디자인합니다. <br />
                    당신의 라이프 스타일을 <br />
                    완성합니다.
                  </h4>
-                 <div className="w-16 h-[2px] bg-[#1F4D46] mb-8" />
-                 <p className="text-sm text-primary/60 font-light leading-relaxed">
+                 <div className="w-16 h-[2.5px] bg-[#00221a] mb-8" />
+                 <p className="text-base text-primary/80 font-medium leading-[1.8] max-w-md">
                    아르코 인테리어는 고객의 삶의 가치를 담아 <br />
                    공간의 본질을 디자인하는 토탈 인테리어 브랜드입니다. <br />
                    공간의 균형과 조화를 통해 일상의 품격을 높여드립니다.
@@ -217,7 +217,7 @@ const Company = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-24 flex flex-col md:flex-row items-center justify-center gap-6">
             <h2 className="text-secondary text-[30px] font-bold tracking-[0.3em] uppercase leading-[60px]">워크플로우</h2>
-            <h3 className="text-3xl md:text-4xl font-display font-light text-primary tracking-tight">시공 프로세스</h3>
+            <h3 className="text-3xl md:text-5xl font-display font-medium text-primary tracking-tight">시공 프로세스</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -229,20 +229,20 @@ const Company = () => {
                 whileHover={{ y: -10 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative bg-white p-10 border border-surface-high overflow-hidden transition-all duration-500 cursor-pointer"
+                className="group relative bg-white p-12 border border-surface-high/80 overflow-hidden transition-all duration-500 cursor-pointer shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]"
               >
                 {/* Background Inversion Layer */}
                 <div 
-                  className="absolute inset-0 bg-primary z-0 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100"
+                   className="absolute inset-0 bg-primary z-0 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100"
                 />
 
                 <div className="relative z-10">
                   <div className="flex justify-between items-start mb-12">
-                    <div className="text-4xl font-display text-primary/10 group-hover:text-white/10 transition-colors duration-500">{step.id}</div>
+                    <div className="text-4xl font-display font-bold text-primary/10 group-hover:text-white/20 transition-colors duration-500">{step.id}</div>
                     <div className="text-secondary transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">{step.icon}</div>
                   </div>
-                  <h4 className="text-xl font-medium text-primary group-hover:text-white mb-4 transition-colors duration-500">{step.title}</h4>
-                  <p className="text-xs text-primary/50 group-hover:text-white/60 leading-relaxed font-light transition-colors duration-500">
+                  <h4 className="text-2xl font-bold text-primary group-hover:text-white mb-6 transition-colors duration-500">{step.title}</h4>
+                  <p className="text-sm text-primary/70 group-hover:text-white/80 leading-relaxed font-semibold transition-colors duration-500">
                     {step.desc}
                   </p>
                   

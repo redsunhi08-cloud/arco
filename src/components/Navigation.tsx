@@ -51,7 +51,7 @@ export const Navigation = () => {
               <Link 
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium tracking-widest uppercase transition-colors hover:text-secondary ${
+                className={`text-sm font-bold tracking-[0.2em] uppercase transition-all hover:text-secondary hover:scale-105 ${
                   isScrolled || !isHome ? "text-primary" : "text-white"
                 } ${location.pathname === item.href ? "text-secondary!" : ""}`}
               >
@@ -98,7 +98,7 @@ export const Navigation = () => {
               <Link 
                 key={item.name}
                 to={item.href}
-                className="text-2xl font-display font-light text-primary hover:text-secondary tracking-widest"
+                className="text-2xl font-display font-medium text-primary hover:text-secondary tracking-[0.2em] uppercase"
               >
                 {item.name}
               </Link>

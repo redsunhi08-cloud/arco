@@ -59,10 +59,10 @@ const PhilosophySection = () => {
           style={{ y: textY1, opacity }}
           className="flex flex-col items-center text-center"
         >
-          <span className="text-secondary text-xs font-bold tracking-[0.5em] uppercase mb-8">Philosophy</span>
-          <h2 className="text-[50px] leading-[70px] font-display font-light text-white tracking-tighter">
-            단순함 속에 깊이를 담는 아르코의 철학
-          </h2>
+            <span className="text-secondary text-[11px] font-bold tracking-[0.4em] uppercase mb-8">Philosophy</span>
+            <h2 className="text-[36px] lg:text-[48px] leading-[1.2] font-display font-light text-white tracking-tighter">
+              단순함 속에 깊이를 담는 <br /> 아르코의 철학
+            </h2>
         </motion.div>
       </div>
     </section>
@@ -158,13 +158,13 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
             }}
             className="pointer-events-auto"
           >
-            <h1 className="text-[60px] font-display font-light text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] leading-[1.05] mb-10 tracking-tight">
+            <h1 className="text-[48px] lg:text-[50px] font-display font-light text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] leading-[1.1] mb-10 tracking-tight">
               감각을 깨우는 <br />
               <span className="text-secondary font-semibold">공간</span>의 가치
             </h1>
             <div className="pl-2">
-              <p className="text-white/95 text-[18px] font-medium mb-12 max-w-2xl leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] tracking-wide">
-                아르코 인테리어는 주거 공간과 상업 공간의 본질을 이해하고, 새로운 가치를 창조합니다.
+              <p className="text-white text-[19px] lg:text-[22px] font-medium mb-12 max-w-2xl leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] tracking-wide">
+                아르코 인테리어는 주거 공간과 상업 공간의 본질을 이해하고, <br /> 새로운 가치를 창조합니다.
               </p>
               <div className="flex justify-start gap-4">
                 <button 
@@ -213,8 +213,8 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[10px] md:text-[11px] font-bold text-[#8D8174] uppercase tracking-[0.4em] mb-4 block">OUR SERVICE</span>
-            <h2 className="text-4xl md:text-6xl font-display font-light text-primary tracking-[0.1em] uppercase">SOLUTIONS</h2>
+            <span className="text-[11px] font-bold text-[#8b6e4e] uppercase tracking-[0.4em] mb-4 block">OUR SERVICE</span>
+            <h2 className="text-4xl md:text-5xl font-display font-medium text-primary tracking-[0.15em] uppercase">SOLUTIONS</h2>
           </motion.div>
         </div>
 
@@ -272,7 +272,7 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
                     <span className="whitespace-pre-line">{service.title}</span>
                   </div>
                   
-                  <h2 className="text-4xl md:text-5xl font-display font-light text-primary group-hover:text-white leading-[1.15] transition-all duration-700">
+                  <h2 className="text-[34px] md:text-[42px] font-display font-medium text-primary group-hover:text-white leading-[1.15] transition-all duration-700">
                     {service.headline.split('\n').map((line, i) => (
                       <React.Fragment key={i}>
                         {line}
@@ -281,7 +281,7 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
                     ))}
                   </h2>
                   
-                  <p className="text-primary/60 font-light text-lg leading-relaxed max-w-md group-hover:text-white/70 transition-colors duration-500">
+                  <p className="text-primary/70 font-light text-lg leading-relaxed max-w-md group-hover:text-white/80 transition-colors duration-500">
                     {service.description}
                   </p>
                   
@@ -306,9 +306,9 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="bg-transparent">
             {/* Header matching Portfolio design */}
-            <div className="flex justify-between items-center pb-12 border-b border-surface-high/50 mb-12">
-              <div className="text-[10px] font-bold text-[#8D8174] tracking-[0.5em] uppercase">Mood & Imagery</div>
-              <div className="text-[10px] text-primary/30 uppercase tracking-[0.2em] font-light">Visual Narrative</div>
+            <div className="flex justify-between items-center pb-12 border-b border-surface-high/80 mb-12">
+              <div className="text-[11px] font-bold text-[#8b6e4e] tracking-[0.5em] uppercase">Mood & Imagery</div>
+              <div className="text-[11px] text-primary/50 uppercase tracking-[0.2em] font-medium">Visual Narrative</div>
             </div>
             
             {/* Gallery Marquee */}
@@ -338,9 +338,9 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
               </motion.div>
             </div>
 
-            <div className="py-20 border-t border-surface-high/30">
-              <div className="text-[10px] font-bold text-primary tracking-[0.4em] uppercase mb-16 text-center lg:text-left">Brand Essence</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-surface-high/30 border border-surface-high/30">
+            <div className="py-20 border-t border-surface-high/80">
+              <div className="text-[11px] font-bold text-primary tracking-[0.4em] uppercase mb-16 text-center lg:text-left">Brand Essence</div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-surface-high/80 border border-surface-high/80">
                 {[
                   { title: "Essential", text: "공간의 본질을 이해합니다" },
                   { title: "Lifestyle", text: "고객 라이프 스타일을 담습니다" },
@@ -353,10 +353,10 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.8 }}
-                    className="bg-white p-12 space-y-6 group cursor-pointer transition-all duration-700 hover:bg-primary"
+                    className="bg-white p-12 space-y-6 group cursor-pointer transition-all duration-700 hover:bg-primary shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]"
                   >
-                    <div className="text-[9px] font-bold text-secondary uppercase tracking-[0.3em] group-hover:text-white/40 transition-colors">0{i + 1} / {item.title}</div>
-                    <div className="text-sm md:text-base font-light text-primary/80 leading-snug group-hover:text-white transition-colors duration-500 whitespace-pre-line">
+                    <div className="text-[10px] font-bold text-secondary uppercase tracking-[0.3em] group-hover:text-white/60 transition-colors">0{i + 1} / {item.title}</div>
+                    <div className="text-base font-medium text-primary/90 leading-snug group-hover:text-white transition-colors duration-500 whitespace-pre-line">
                       {item.text}
                     </div>
                     <div className="w-8 h-[1px] bg-secondary group-hover:w-full group-hover:bg-white/20 transition-all duration-700" />
@@ -376,8 +376,8 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-end mb-16">
             <div>
-              <h2 className="text-secondary text-xs font-bold tracking-[0.3em] uppercase mb-6">아카이브</h2>
-              <h3 className="text-4xl font-display font-light text-primary tracking-tight">주요 프로젝트</h3>
+              <h2 className="text-secondary text-[11px] font-bold tracking-[0.3em] uppercase mb-6">아카이브</h2>
+              <h3 className="text-4xl font-display font-medium text-primary tracking-tight">주요 프로젝트</h3>
             </div>
             <Link to="/portfolio" className="text-[10px] font-bold tracking-widest uppercase text-primary/40 hover:text-primary transition-colors">
               전체 보기
@@ -438,8 +438,8 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3, duration: 0.8 }}
                   >
-                    <h4 className="text-xl font-medium text-primary mb-1 group-hover:text-secondary transition-colors duration-300">{project.title}</h4>
-                    <p className="text-[10px] font-bold tracking-widest uppercase text-primary/30 group-hover:text-primary/50 transition-colors duration-300">
+                    <h4 className="text-2xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors duration-300">{project.title}</h4>
+                    <p className="text-[11px] font-bold tracking-widest uppercase text-primary/50 group-hover:text-primary transition-colors duration-300">
                       {project.type === "Residential" ? "주거" : "상업"} &middot; {project.year}
                     </p>
                   </motion.div>
@@ -455,21 +455,21 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
         <div className="max-w-7xl mx-auto px-6 mb-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
             <div>
-              <h2 className="text-secondary text-xs font-bold tracking-[0.3em] uppercase mb-6">고객의 목소리</h2>
-              <h3 className="text-4xl font-display font-light text-primary">완성된 공간, 만족의 기록</h3>
+              <h2 className="text-secondary text-[11px] font-bold tracking-[0.3em] uppercase mb-6">고객의 목소리</h2>
+              <h3 className="text-4xl font-display font-medium text-primary">완성된 공간, 만족의 기록</h3>
             </div>
             <div className="flex gap-16">
               <div className="text-center md:text-left">
-                <div className="text-4xl font-display font-light text-primary mb-2">
+                <div className="text-4xl font-display font-medium text-primary mb-2">
                   <Counter value={1280} />+
                 </div>
-                <div className="text-[10px] font-bold tracking-widest uppercase text-primary/30">구매 건수</div>
+                <div className="text-[11px] font-bold tracking-widest uppercase text-primary/50">구매 건수</div>
               </div>
               <div className="text-center md:text-left">
-                <div className="text-4xl font-display font-light text-primary mb-2">
+                <div className="text-4xl font-display font-medium text-primary mb-2">
                   <Counter value={452} />+
                 </div>
-                <div className="text-[10px] font-bold tracking-widest uppercase text-primary/30">고객후기 건수</div>
+                <div className="text-[11px] font-bold tracking-widest uppercase text-primary/50">고객후기 건수</div>
               </div>
             </div>
           </div>
@@ -507,14 +507,14 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
                       <Award key={i} size={14} fill="currentColor" />
                     ))}
                   </div>
-                  <p className="text-primary/70 font-light leading-relaxed mb-10 whitespace-normal h-24 overflow-hidden group-hover:text-white/80 transition-colors">
+                  <p className="text-primary/80 font-medium leading-relaxed mb-10 whitespace-normal h-24 overflow-hidden group-hover:text-white/90 transition-colors">
                     "{review.text}"
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="w-1.5 h-1.5 rounded-full bg-secondary group-hover:bg-white transition-colors" />
                     <div>
                       <div className="text-[11px] font-bold text-primary uppercase tracking-widest mb-0.5 group-hover:text-white transition-colors">{review.author}</div>
-                      <div className="text-[10px] text-primary/30 uppercase tracking-tighter group-hover:text-white/40 transition-colors">{review.type === "Residential" ? "주거" : "상업"}</div>
+                      <div className="text-[10px] text-primary/50 font-bold uppercase tracking-tighter group-hover:text-white/60 transition-colors">{review.type === "Residential" ? "주거" : "상업"}</div>
                     </div>
                   </div>
                 </div>
@@ -537,10 +537,10 @@ const Home = ({ isSplashVisible }: { isSplashVisible: boolean }) => {
                  <ArrowUpRight className="transform -rotate-45" size={24} />
                </div>
             </div>
-            <h2 className="text-4xl md:text-5xl font-display font-light text-primary leading-tight mb-8">
+            <h2 className="text-[42px] font-display font-light text-primary leading-tight mb-8">
               공간을 위한 전문적인 <br /> 손길을 경험해보세요
             </h2>
-            <p className="text-primary/50 font-light mb-12 max-w-xl mx-auto">
+            <p className="text-primary/70 font-medium mb-12 max-w-xl mx-auto leading-relaxed">
               우리의 건축가 및 디자이너 팀은 당신의 비전을 기대 이상의 현실로 바꿀 준비가 되어 있습니다. 전문가의 상담 없이 여정을 시작하지 마세요.
             </p>
             <button 

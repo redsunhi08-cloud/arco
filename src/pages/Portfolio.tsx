@@ -153,29 +153,29 @@ const BeforeAfterCard = ({ project }: BeforeAfterCardProps) => {
       </div>
 
       <div className="p-8 md:p-12 lg:p-16 space-y-6 md:w-[45%] lg:w-[35%] flex flex-col justify-center bg-white relative z-20">
-        <div className="space-y-2">
-          <div className="text-[10px] font-bold text-secondary tracking-[0.3em] uppercase mb-2">{project.category}</div>
-          <h4 className="text-2xl md:text-3xl font-display font-medium text-primary tracking-tight leading-tight whitespace-pre-line">{project.title}</h4>
+        <div className="space-y-4">
+          <div className="text-[11px] font-bold text-secondary tracking-[0.3em] uppercase mb-2">{project.category}</div>
+          <h4 className="text-2xl lg:text-3xl font-display font-medium text-primary tracking-tight leading-tight whitespace-pre-line">{project.title}</h4>
         </div>
         
-        <div className="grid grid-cols-1 gap-6 py-8 border-y border-surface-high/50 text-xs text-primary/60 font-medium">
+        <div className="grid grid-cols-1 gap-6 py-8 border-y border-surface-high/80 text-xs font-semibold">
           <div className="flex justify-between items-center font-sans">
-            <span className="text-[9px] text-primary/30 font-bold uppercase tracking-widest">Location</span>
+            <span className="text-[10px] text-primary/50 font-bold uppercase tracking-widest">Location</span>
             <span className="text-primary">{project.location}</span>
           </div>
           <div className="flex justify-between items-center font-sans">
-            <span className="text-[9px] text-primary/30 font-bold uppercase tracking-widest">Size</span>
+            <span className="text-[10px] text-primary/50 font-bold uppercase tracking-widest">Size</span>
             <span className="text-primary">{project.size}</span>
           </div>
           <div className="flex justify-between items-center font-sans">
-            <span className="text-[9px] text-primary/30 font-bold uppercase tracking-widest">Period</span>
+            <span className="text-[10px] text-primary/50 font-bold uppercase tracking-widest">Period</span>
             <span className="text-primary">{project.duration}</span>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-3 pt-2">
           {project.tags.map((tag) => (
-            <span key={tag} className="text-[10px] text-primary/30 font-bold tracking-[0.1em] uppercase border border-surface-high px-3 py-1 rounded-full group-hover:border-secondary group-hover:text-secondary transition-all cursor-default">#{tag}</span>
+            <span key={tag} className="text-[10px] text-primary/60 font-bold tracking-[0.1em] uppercase border border-surface-high/80 px-4 py-1.5 rounded-full group-hover:border-secondary group-hover:text-secondary transition-all cursor-default">#{tag}</span>
           ))}
         </div>
       </div>
@@ -218,9 +218,9 @@ const Portfolio = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[10px] font-bold tracking-[0.4em] text-secondary uppercase mb-4 block">Archive</span>
-            <h1 className="text-[60px] font-display font-light text-primary tracking-tight mb-6 uppercase">Transformed</h1>
-            <p className="text-sm font-light text-primary/50 tracking-wide mb-16">
+            <span className="text-[11px] font-bold tracking-[0.4em] text-secondary uppercase mb-4 block">Archive</span>
+            <h1 className="text-[48px] lg:text-[50px] font-display font-medium text-primary tracking-tight mb-6 uppercase leading-[1.2]">Transformed</h1>
+            <p className="text-base font-medium text-primary/70 tracking-wide mb-16">
               정교한 엔지니어링과 예술적 감각이 만나는 <br className="hidden md:block" /> 시공 전후의 극적인 변화를 경험해보세요.
             </p>
           </motion.div>
@@ -293,9 +293,9 @@ const Portfolio = () => {
                 </motion.div>
               </div>
 
-            <div className="py-20 border-t border-surface-high/30">
-              <div className="text-[10px] font-bold text-primary tracking-[0.4em] uppercase mb-16 text-center lg:text-left">Brand Essence</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-surface-high/30 border border-surface-high/30">
+            <div className="py-20 border-t border-surface-high/80">
+              <div className="text-[11px] font-bold text-primary tracking-[0.4em] uppercase mb-16 text-center lg:text-left">Brand Essence</div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-surface-high/80 border border-surface-high/80">
                 {[
                   { title: "Essential", text: "공간의 본질을 이해합니다" },
                   { title: "Lifestyle", text: "고객 라이프 스타일을 담습니다" },
@@ -308,10 +308,10 @@ const Portfolio = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.8 }}
-                    className="bg-white p-12 space-y-6 group cursor-pointer transition-all duration-700 hover:bg-primary"
+                    className="bg-white p-12 space-y-6 group cursor-pointer transition-all duration-700 hover:bg-primary shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]"
                   >
-                    <div className="text-[9px] font-bold text-secondary uppercase tracking-[0.3em] group-hover:text-white/40 transition-colors">0{i + 1} / {item.title}</div>
-                    <div className="text-sm md:text-base font-light text-primary/80 leading-snug group-hover:text-white transition-colors duration-500 whitespace-pre-line">
+                    <div className="text-[10px] font-bold text-secondary uppercase tracking-[0.3em] group-hover:text-white/60 transition-colors">0{i + 1} / {item.title}</div>
+                    <div className="text-base font-medium text-primary/90 leading-snug group-hover:text-white transition-colors duration-500 whitespace-pre-line">
                       {item.text}
                     </div>
                   </motion.div>

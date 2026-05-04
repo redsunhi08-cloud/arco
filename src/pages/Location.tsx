@@ -16,9 +16,9 @@ const Location = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[10px] md:text-[11px] font-bold text-[#8D8174] uppercase tracking-[0.4em] mb-4 block">OUR STUDIO</span>
-            <h1 className="text-4xl md:text-6xl font-display font-light text-primary tracking-[0.1em] uppercase mb-8">LOCATION</h1>
-            <p className="text-primary/40 font-light text-[13px] md:text-sm tracking-widest max-w-2xl mx-auto leading-relaxed">
+            <span className="text-[11px] font-bold text-[#8b6e4e] uppercase tracking-[0.4em] mb-4 block">OUR STUDIO</span>
+            <h1 className="text-4xl md:text-[50px] font-display font-medium text-primary tracking-[0.15em] uppercase mb-8">LOCATION</h1>
+            <p className="text-primary/70 font-medium text-[14px] md:text-base tracking-widest max-w-2xl mx-auto leading-relaxed">
               아르코의 건축적 호흡이 담긴 오프라인 스튜디오를 안내합니다. <br className="hidden md:block" /> 감각적인 공간의 탄생과정을 직접 경험해보세요.
             </p>
           </motion.div>
@@ -36,17 +36,17 @@ const Location = () => {
               transition={{ duration: 0.8 }}
               className="max-w-2xl"
             >
-              <h2 className="text-[#2D3319] text-[10px] font-bold tracking-[0.4em] uppercase mb-6">스튜디오</h2>
-              <h3 className="text-[36px] font-display font-light text-primary tracking-tight leading-tight">건축적 영감이 시작되는 곳</h3>
+              <h2 className="text-[#8b6e4e] text-[11px] font-bold tracking-[0.4em] uppercase mb-6">스튜디오</h2>
+              <h3 className="text-[40px] font-display font-medium text-primary tracking-tight leading-tight">건축적 영감이 시작되는 곳</h3>
             </motion.div>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-primary/40 text-[13px] font-light leading-relaxed max-w-sm"
+              className="text-primary/70 text-[14px] md:text-base font-medium leading-relaxed max-w-sm"
             >
-              디자인 지구의 중심부에 위치한 우리의 스튜디오는 비전이 도면으로 바뀌는 개방형 건축 공간입니다. 전문 디자이너와 함께하는 상담을 위해 방문해 주세요.
+              우리 스튜디오는 비전이 도면으로 바뀌는 개방형 건축 공간입니다. 전문 디자이너와 함께하는 상담을 위해 방문해 주세요.
             </motion.p>
           </div>
 
@@ -90,34 +90,34 @@ const Location = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                 >
-                   <h4 className="text-[10px] font-bold text-primary/30 uppercase tracking-[0.3em] mb-10 pb-4 border-b border-surface-high">Contact</h4>
-                   <div className="space-y-10">
-                      <div>
-                        <div className="text-[10px] font-bold text-primary/20 uppercase tracking-widest mb-4">Address</div>
-                        <p className="text-xl text-primary font-light leading-snug">
-                           판교 테크노밸리 <br />
-                           경기도 성남시 분당구 판교역로 166 <br />
-                           대한민국 13529
-                        </p>
-                      </div>
-                      <div>
-                        <div className="text-[10px] font-bold text-primary/20 uppercase tracking-widest mb-4">Direct Lines</div>
-                        <div className="space-y-4">
-                           <div className="flex items-center gap-4 text-primary">
-                              <div className="w-10 h-10 rounded-full bg-surface-high/20 flex items-center justify-center">
-                                <Phone size={14} />
-                              </div>
-                              <span className="text-lg font-light">+82 2 1234 5678</span>
-                           </div>
-                           <div className="flex items-center gap-4 text-primary">
-                              <div className="w-10 h-10 rounded-full bg-surface-high/20 flex items-center justify-center">
-                                <Mail size={14} />
-                              </div>
-                              <span className="text-lg font-light">visit@arco-interior.com</span>
-                           </div>
-                        </div>
-                      </div>
-                   </div>
+                    <h4 className="text-[11px] font-bold text-primary/50 uppercase tracking-[0.3em] mb-10 pb-4 border-b border-surface-high/80">Contact</h4>
+                    <div className="space-y-10">
+                       <div>
+                         <div className="text-[11px] font-bold text-primary/40 uppercase tracking-widest mb-4">Address</div>
+                         <p className="text-2xl text-primary font-medium leading-[1.4]">
+                            판교 테크노밸리 <br />
+                            경기도 성남시 분당구 판교역로 166 <br />
+                            대한민국 13529
+                         </p>
+                       </div>
+                       <div>
+                         <div className="text-[11px] font-bold text-primary/40 uppercase tracking-widest mb-4">Direct Lines</div>
+                         <div className="space-y-4">
+                            <div className="flex items-center gap-4 text-primary group cursor-pointer">
+                               <div className="w-10 h-10 rounded-full bg-surface-high/40 flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-all">
+                                 <Phone size={14} />
+                               </div>
+                               <span className="text-xl font-bold group-hover:text-secondary transition-colors">+82 2 1234 5678</span>
+                            </div>
+                            <div className="flex items-center gap-4 text-primary group cursor-pointer">
+                               <div className="w-10 h-10 rounded-full bg-surface-high/40 flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-all">
+                                 <Mail size={14} />
+                               </div>
+                               <span className="text-xl font-bold group-hover:text-secondary transition-colors">visit@arco-interior.com</span>
+                            </div>
+                         </div>
+                       </div>
+                    </div>
                 </motion.div>
                 
                 <motion.div

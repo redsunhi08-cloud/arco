@@ -175,22 +175,22 @@ const Reviews = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[10px] md:text-[11px] font-bold text-[#8D8174] uppercase tracking-[0.4em] mb-4 block">CLIENT SATISFACTION</span>
-            <h1 className="text-4xl md:text-6xl font-display font-light text-primary tracking-[0.1em] uppercase mb-8">REVIEWS</h1>
-            <p className="text-primary/40 text-xs md:text-sm font-light tracking-widest uppercase mb-12">공간의 가치를 증명하는 <br className="md:hidden" /> 고객의 생생한 기록</p>
+            <span className="text-[11px] font-bold text-[#8b6e4e] uppercase tracking-[0.4em] mb-4 block">CLIENT SATISFACTION</span>
+            <h1 className="text-4xl md:text-[50px] font-display font-medium text-primary tracking-[0.15em] uppercase mb-8">REVIEWS</h1>
+            <p className="text-primary/60 text-xs md:text-sm font-semibold tracking-widest uppercase mb-12">공간의 가치를 증명하는 <br className="md:hidden" /> 고객의 생생한 기록</p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-12 mt-8">
                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-display font-light text-primary mb-2">
+                  <div className="text-4xl md:text-5xl font-display font-medium text-primary mb-2">
                     <Counter value={1280} />+
                   </div>
-                  <div className="text-[10px] font-bold tracking-[0.2em] text-primary/30 uppercase">구매 건수</div>
+                  <div className="text-[11px] font-bold tracking-[0.2em] text-primary/50 uppercase">구매 건수</div>
                </div>
                <div className="w-[1px] h-12 bg-surface-high hidden md:block" />
                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-display font-light text-primary mb-2">
+                  <div className="text-4xl md:text-5xl font-display font-medium text-primary mb-2">
                     <Counter value={452} />+
                   </div>
-                  <div className="text-[10px] font-bold tracking-[0.2em] text-primary/30 uppercase">고객 후기</div>
+                  <div className="text-[11px] font-bold tracking-[0.2em] text-primary/50 uppercase">고객 후기</div>
                </div>
             </div>
           </motion.div>

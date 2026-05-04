@@ -47,26 +47,26 @@ export const Footer = () => {
           </div>
 
           <div className="lg:col-span-1">
-            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-primary mb-8">탐색</h4>
+            <h4 className="text-[11px] font-bold tracking-[0.3em] uppercase text-primary mb-8 border-b border-surface-high pb-4 inline-block w-full">탐색</h4>
             <ul className="space-y-4">
-              <li><Link to="/portfolio" className="text-sm text-primary/50 hover:text-primary transition-colors">포트폴리오</Link></li>
-              <li><a href="#" className="text-sm text-primary/50 hover:text-primary transition-colors">블로그</a></li>
-              <li><a href="#" className="text-sm text-primary/50 hover:text-primary transition-colors">인스타그램</a></li>
+              <li><Link to="/portfolio" className="text-sm font-semibold text-primary/70 hover:text-secondary transition-colors">포트폴리오</Link></li>
+              <li><a href="#" className="text-sm font-semibold text-primary/70 hover:text-secondary transition-colors">블로그</a></li>
+              <li><a href="#" className="text-sm font-semibold text-primary/70 hover:text-secondary transition-colors">인스타그램</a></li>
             </ul>
           </div>
 
           <div className="lg:col-span-1">
-            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-primary mb-8">지원</h4>
+            <h4 className="text-[11px] font-bold tracking-[0.3em] uppercase text-primary mb-8 border-b border-surface-high pb-4 inline-block w-full">지원</h4>
             <ul className="space-y-4">
-              <li><a href="#" className="text-sm text-primary/50 hover:text-primary transition-colors">개인정보처리방침</a></li>
-              <li><a href="#" className="text-sm text-primary/50 hover:text-primary transition-colors">이용약관</a></li>
-              <li><button onClick={openModal} className="text-sm text-primary/50 hover:text-primary transition-colors cursor-pointer">문의하기</button></li>
+              <li><a href="#" className="text-sm font-semibold text-primary/70 hover:text-secondary transition-colors">개인정보처리방침</a></li>
+              <li><a href="#" className="text-sm font-semibold text-primary/70 hover:text-secondary transition-colors">이용약관</a></li>
+              <li><button onClick={openModal} className="text-sm font-semibold text-primary/70 hover:text-secondary transition-colors cursor-pointer">문의하기</button></li>
             </ul>
           </div>
 
           <div className="lg:col-span-1 space-y-8">
-            <h4 className="text-[10px] font-bold tracking-[0.3em] uppercase text-primary mb-8">소식지 구독</h4>
-            <p className="text-sm text-primary/50">아카이브를 구독하여 새로운 프로젝트 소식과 디자인 팁을 받아보세요.</p>
+            <h4 className="text-[11px] font-bold tracking-[0.3em] uppercase text-primary mb-8 border-b border-surface-high pb-4 inline-block w-full">소식지 구독</h4>
+            <p className="text-sm font-medium text-primary/80 leading-relaxed">아카이브를 구독하여 새로운 프로젝트 소식과 디자인 팁을 받아보세요.</p>
             <form onSubmit={handleSubscribe} className="flex max-w-md border-b border-surface-high">
               <input 
                 type="email" 

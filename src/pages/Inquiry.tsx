@@ -56,9 +56,9 @@ const Inquiry = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[10px] md:text-[11px] font-bold text-[#8D8174] uppercase tracking-[0.4em] mb-4 block">CONSULTATION</span>
-            <h1 className="text-4xl md:text-6xl font-display font-light text-primary tracking-[0.1em] uppercase mb-8">INQUIRY</h1>
-            <p className="text-primary/40 font-light text-[13px] md:text-sm tracking-widest max-w-2xl mx-auto leading-relaxed">
+            <span className="text-[11px] font-bold text-[#8b6e4e] uppercase tracking-[0.4em] mb-4 block">CONSULTATION</span>
+            <h1 className="text-4xl md:text-[50px] font-display font-medium text-primary tracking-[0.15em] uppercase mb-8">INQUIRY</h1>
+            <p className="text-primary/70 font-medium text-[14px] md:text-base tracking-widest max-w-2xl mx-auto leading-relaxed">
               당신의 비전을 도면 위에 실현하는 첫 번째 시작입니다. <br className="hidden md:block" /> 아르코와 함께 공간의 새로운 가능성을 발견하세요.
             </p>
           </motion.div>
@@ -75,9 +75,9 @@ const Inquiry = () => {
                       <div className="w-10 h-10 flex items-center justify-center bg-surface border border-surface-high group-hover:border-secondary transition-colors">
                         <Phone size={18} className="text-secondary" />
                       </div>
-                      <span className="text-[10px] font-bold text-primary/30 uppercase tracking-widest">전화번호</span>
+                      <span className="text-[11px] font-bold text-primary/50 uppercase tracking-widest">전화번호</span>
                     </div>
-                    <div className="text-xl text-primary font-medium">+82 2 1234 5678</div>
+                    <div className="text-2xl text-primary font-bold transition-all group-hover:text-secondary">+82 2 1234 5678</div>
                   </div>
 
                   <div className="group">
@@ -85,9 +85,9 @@ const Inquiry = () => {
                       <div className="w-10 h-10 flex items-center justify-center bg-surface border border-surface-high group-hover:border-secondary transition-colors">
                         <Mail size={18} className="text-secondary" />
                       </div>
-                      <span className="text-[10px] font-bold text-primary/30 uppercase tracking-widest">이메일</span>
+                      <span className="text-[11px] font-bold text-primary/50 uppercase tracking-widest">이메일</span>
                     </div>
-                    <div className="text-xl text-primary font-medium">design@arco-interior.com</div>
+                    <div className="text-2xl text-primary font-bold transition-all group-hover:text-secondary">design@arco-interior.com</div>
                   </div>
 
                   <div className="group">
@@ -95,10 +95,10 @@ const Inquiry = () => {
                       <div className="w-10 h-10 flex items-center justify-center bg-surface border border-surface-high group-hover:border-secondary transition-colors">
                         <Clock size={18} className="text-secondary" />
                       </div>
-                      <span className="text-[10px] font-bold text-primary/30 uppercase tracking-widest">상담 시간</span>
+                      <span className="text-[11px] font-bold text-primary/50 uppercase tracking-widest">상담 시간</span>
                     </div>
-                    <div className="text-xl text-primary font-medium">09:30 - 18:30</div>
-                    <p className="text-xs text-primary/40 mt-1 font-medium">월요일 - 금요일, KST</p>
+                    <div className="text-2xl text-primary font-bold">09:30 - 18:30</div>
+                    <p className="text-[11px] text-primary/60 mt-1 font-bold">월요일 - 금요일, KST</p>
                   </div>
                </div>
 
