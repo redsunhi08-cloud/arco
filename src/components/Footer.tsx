@@ -34,7 +34,7 @@ export const Footer = () => {
             <img 
               src={ASSETS.LOGO} 
               alt="ARCO" 
-              className="h-12 w-auto mb-8 brightness-0 object-contain" 
+              className="w-[100px] h-[60px] mb-8 brightness-0 object-contain" 
               referrerPolicy="no-referrer"
             />
             <p className="text-sm text-primary/50 leading-relaxed mb-8 max-w-xs">

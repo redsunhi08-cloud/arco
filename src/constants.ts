@@ -7,7 +7,7 @@ export const ASSETS = {
     "https://postfiles.pstatic.net/MjAyNjA0MzBfMjI1/MDAxNzc3NTYwNTE1ODcy.3jldBmO6Mj0SSTJvsDDWbpv4Koj0UjE8NnzhfNAYb3sg.kCnlixPGBhVceEtbSant5PDx88h7nB_cptvrnjqgtBAg.PNG/%ED%9E%88%EC%96%B4%EB%A1%9C_%EC%84%B9%EC%85%98_4.png?type=w3840",
     "https://postfiles.pstatic.net/MjAyNjA0MzBfMTkw/MDAxNzc3NTYwNDI1NTQ3.bF1bHaZN8z5Q2CAZuW5NC4QvFbHmZSm7_h6_C87QNysg.hMhsy5jau3LMyOrkRxTkhob-K6H1pL82iuL_CiQJxh0g.PNG/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A42.png?type=w3840"
   ],
-  INTRO_GIF: "https://postfiles.pstatic.net/MjAyNjA1MDFfMjU5/MDAxNzc3NTYzODQ2NDAy.mu10y9Uc2BqHq_HdjzDV0W-QhevIJkfKqSUgMTT79HQg.tFTyyqplrVACtmN6UO1Tkll7Y1aLadGp6uubsxIb8XYg.GIF/%EC%9D%B8%ED%8A%B8%EB%A1%9C%EC%98%81%EC%83%812.gif?type=w3840",
+  INTRO_GIF: "https://postfiles.pstatic.net/MjAyNjA1MDFfMTkg/MDAxNzc3NTY1MjU5MDUy.xE2dTrlgMFmNK33JqZFRQJ8tnNXj8WCIHoc2OsFPLfAg.PjsJ0WVPYAoquHrvehekzHdmxVCJOqrzdk2ZrbjNuKQg.GIF/Untitled_design.gif?type=w3840",
   PHILOSOPHY: "https://postfiles.pstatic.net/MjAyNjA0MzBfMjc5/MDAxNzc3NTYwNDc2Njcw.g8IU874dxRZDcndJ11SpEVXovLmGYO50xVRz8_63O5Ug.U7wusWGeXyxGIKpG40vUvON4jkc9OhDj_42h3Po9tX4g.PNG/%ED%9A%8C%EC%82%AC_%EA%B1%B4%EB%AC%BC.png?type=w3840",
   PROJECTS: [
     {

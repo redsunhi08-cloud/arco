@@ -38,7 +38,7 @@ export const Navigation = () => {
             <img 
               src={ASSETS.LOGO} 
               alt="ARCO" 
-              className={`h-[40px] w-auto transition-all object-contain ${
+              className={`w-[150px] h-[50px] transition-all object-contain ${
                 isScrolled || !isHome ? "brightness-0" : "brightness-100 invert"
               }`} 
               referrerPolicy="no-referrer"
