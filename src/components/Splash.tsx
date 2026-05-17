@@ -11,6 +11,7 @@ interface SplashProps {
 
 const Splash: React.FC<SplashProps> = ({ isVisible, onClose }) => {
   const navigate = useNavigate();
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     // Disable scrolling when splash is visible
@@ -41,15 +42,27 @@ const Splash: React.FC<SplashProps> = ({ isVisible, onClose }) => {
           className="fixed inset-0 z-[100] bg-black overflow-hidden"
         >
           <motion.div 
-            initial={{ scale: 1.05 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 5 }}
+            initial={{ scale: 1.05, opacity: 0 }}
+            animate={{ 
+              scale: isImageLoaded ? 1 : 1.05, 
+              opacity: isImageLoaded ? 1 : 0 
+            }}
+            transition={{ 
+              scale: { duration: 5, ease: "linear" },
+              opacity: { duration: 0.8 }
+            }}
             className="absolute inset-0"
           >
             <img 
               src={ASSETS.INTRO_GIF} 
               alt="Intro" 
               className="w-full h-full object-cover brightness-90"
+              onLoad={() => setIsImageLoaded(true)}
+              onError={(e) => {
+                console.error("Intro GIF failed to load", e);
+                // Fallback: still show content even if image fails
+                setIsImageLoaded(true); 
+              }}
               referrerPolicy="no-referrer"
             />
             {/* Overlay Gradient: Left-side subtle shadow to make text pop */}
